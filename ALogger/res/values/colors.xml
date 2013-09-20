@@ -1,0 +1,10 @@
+
+    <resources>
+        <color name="dim_foreground_dark">#bebebe</color>
+    	<color name="dim_foreground_dark_disabled">#80bebebe</color>
+    	<color name="dim_foreground_dark_inverse">#323232</color>
+    	<color name="dim_foreground_dark_inverse_disabled">#80323232</color>
+    	<color name="bright_foreground_light">@android:color/background_dark</color>
+    	<color name="background_dark">#ff000000</color>
+    	<color name="bright_foreground_dark_inverse">@color/bright_foreground_light</color>	
+    </resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/tvWhat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="2dp"
+        android:background="#FF0000" />
+
+
+    <TextView
+        android:id="@+id/tvWhen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@+id/divider"
+        android:text="when"
+        android:textSize="10sp"/>
+
+
+    <TextView
+        android:id="@+id/tvWhat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvWhen"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@+id/divider"
+        android:text="what"
+        android:textSize="10sp"/>
+
+</RelativeLayout>
