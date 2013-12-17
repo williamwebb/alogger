@@ -11,15 +11,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.android</groupId>
+            <groupId>android</groupId>
             <artifactId>android</artifactId>
-            <version>4.1.1.4</version>
+            <version>4.4_r1</version>
             <scope>provided</scope>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.actionbarsherlock</groupId>-->
+            <!--<artifactId>actionbarsherlock</artifactId>-->
+            <!--<version>4.4.0</version>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>com.actionbarsherlock</groupId>
-            <artifactId>actionbarsherlock</artifactId>
-            <version>4.4.0</version>
+            <groupId>com.google.android</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>r6</version>
         </dependency>
     </dependencies>
 
@@ -30,7 +35,7 @@
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>3.8.0</version>
                 <configuration>
                     <nativeLibrariesDirectory>ignored</nativeLibrariesDirectory>
                     <sdk>
@@ -69,32 +74,6 @@
                     <value>static int</value>
                 </configuration>
             </plugin>
-            <!--
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>build-helper-maven-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <phase>package</phase>
-                                    <goals>
-                                        <goal>attach-artifact</goal>
-                                    </goals>
-                                    <configuration>
-                                        <artifacts>
-                                            <artifact>
-                                                <type>jar</type>
-                                                <file>${project.build.directory}/${project.build.finalName}.jar</file>
-                                            </artifact>
-                                            <artifact>
-                                                <type>aar</type>
-                                                <file>${project.basedir}/build/libs/${project.artifactId}-${gradle.version}.aar</file>
-                                            </artifact>
-                                        </artifacts>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        -->
         </plugins>
 
         <pluginManagement>

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-import java.util.logging.XMLFormatter;
 
 public class ALogger implements Serializable {
 
@@ -20,10 +19,7 @@ public class ALogger implements Serializable {
     private static FileHandler handler = null;
     private static String logFilePath = "";
     private static String mTag = "";
-    private static boolean mToLogCat = false;
     static ALogger alogger = null;
-
-    private boolean showMethodPath = true;
 
     private ALogger(){}
 
@@ -38,7 +34,6 @@ public class ALogger implements Serializable {
 
     public static void init(Application application, String tag, boolean toLogCat) {
         mTag = tag;
-        mToLogCat = toLogCat;
 
         if (alogger == null) {
             alogger = new ALogger(application, tag);
@@ -113,17 +108,10 @@ public class ALogger implements Serializable {
 
         @Override
         public void uncaughtException(Thread thread, Throwable ex) {
-            alogger.fatal("UncaughtException", ex);
+            alogger.log("UncaughtException", ex,LogLevel.FATAL);
             dExceptionHandler.uncaughtException(thread, ex);
         }
 
-    };
-
-    public void setShowMethodPath(boolean show) {
-        showMethodPath = show;
-    }
-
-    XMLFormatter xmlF = new XMLFormatter() {
     };
 
     public File getLogFile() {
@@ -262,53 +250,6 @@ public class ALogger implements Serializable {
         return class1 + "." + class2;
     }
 
-    public void trace(Object message) {
-        log(message, LogLevel.TRACE);
-    }
-
-    public void trace(Object message, Throwable t) {
-        log(message, t, LogLevel.TRACE);
-    }
-
-    public void debug(Object message) {
-        log(message, LogLevel.DEBUG);
-    }
-
-    public void debug(Object message, Throwable t) {
-        log(message, t, LogLevel.DEBUG);
-    }
-
-    public void info(Object message) {
-        log(message, LogLevel.INFO);
-    }
-
-    public void info(Object message, Throwable t) {
-        log(message, t, LogLevel.INFO);
-    }
-
-    public void warn(Object message) {
-        log(message, LogLevel.WARN);
-    }
-
-    public void warn(Object message, Throwable t) {
-        log(message, t, LogLevel.WARN);
-    }
-
-    public void error(Object message) {
-        log(message, LogLevel.ERROR);
-    }
-
-    public void error(Object message, Throwable t) {
-        log(message, t, LogLevel.ERROR);
-    }
-
-    public void fatal(Object message) {
-        log(message, LogLevel.FATAL);
-    }
-
-    public void fatal(Object message, Throwable t) {
-        log(message, t, LogLevel.FATAL);
-    }
 
     public void log(Object message, LogLevel logLevel) {
         String msg = String.valueOf(message);

@@ -16,6 +16,7 @@
 
 package com.jug6ernaut.android.logging;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,34 +25,26 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class LogFragment extends SherlockFragment implements
+public class LogFragment extends Fragment implements
 	LoaderManager.LoaderCallbacks<ArrayList<LogEntry>>, ALogger.OnLogListener {
 	
-	private SherlockFragmentActivity mActivity;
+	private FragmentActivity mActivity;
 	private ALogger logger = ALogger.getRootLogger();
 	private ArrayList<LogEntry> logs = null;
 	private ListView listView = null;
@@ -66,15 +59,15 @@ public class LogFragment extends SherlockFragment implements
         this.showActionBar = showActionBar;
 	}
 	
-	public void attachTo(SherlockFragmentActivity a){
+	public void attachTo(FragmentActivity a){
 		this.attachTo(a,android.R.id.content);
 	}
-    public void attachTo(SherlockFragmentActivity a, int viewId) {
+    public void attachTo(FragmentActivity a, int viewId) {
         a.getSupportFragmentManager().beginTransaction().add(
                 viewId, this).commit();
     }
 	
-	public void detach(SherlockFragmentActivity a){
+	public void detach(FragmentActivity a){
 		a.getSupportFragmentManager().beginTransaction().remove(this).commit();
 	}
 
@@ -82,11 +75,11 @@ public class LogFragment extends SherlockFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        
-        mActivity = this.getSherlockActivity();
+        mActivity = this.getActivity();
         getLoaderManager().initLoader(0, null, this);
 
         if(showActionBar)
- 	        mActivity.startActionMode(new LogActionMode(mActivity.getSupportActionBar(),this));
+ 	        mActivity.startActionMode(new LogActionMode(mActivity.getActionBar(),this));
  	  
     }
         
@@ -161,7 +154,7 @@ public class LogFragment extends SherlockFragment implements
             subMenu1.add(0, 1, MENU_PAUSE_LOG, PAUSE_LOG);
 
             MenuItem subMenu1Item = subMenu1.getItem();
-            subMenu1Item.setIcon(com.actionbarsherlock.R.drawable.abs__ic_menu_moreoverflow_holo_dark);
+            subMenu1Item.setIcon(android.R.drawable.ic_menu_add);
             subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
             return true;

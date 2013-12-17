@@ -12,6 +12,7 @@ import java.io.Serializable;
  */
 public abstract class Logger implements Serializable {
 
+    public static boolean FORCE_LOGGING = false;
     private static ALogger rootLogger = null;
     private String name = "";
 
@@ -32,7 +33,7 @@ public abstract class Logger implements Serializable {
             rootLogger = ALogger.getRootLogger();
         }
 
-        if(BuildConfig.DEBUG)
+        if(BuildConfig.DEBUG || FORCE_LOGGING)
             return new DebugLogger(name);
         else
             return new ProdLogger(name);
@@ -91,10 +92,6 @@ public abstract class Logger implements Serializable {
 
     private void log(Object message, Throwable t, LogLevel logLevel) {
         rootLogger.log(name + ":" + message, t, logLevel);
-    }
-
-    public ALogger getRootLogger(){
-        return this.rootLogger;
     }
 
 }
