@@ -17,18 +17,18 @@
 package com.jug6ernaut.android.logging;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.*;
 import android.view.ViewGroup.LayoutParams;
@@ -44,7 +44,7 @@ import java.util.ArrayList;
 public class LogFragment extends Fragment implements
 	LoaderManager.LoaderCallbacks<ArrayList<LogEntry>>, ALogger.OnLogListener {
 	
-	private FragmentActivity mActivity;
+	private Activity mActivity;
 	private ALogger logger = ALogger.getRootLogger();
 	private ArrayList<LogEntry> logs = null;
 	private ListView listView = null;
@@ -59,16 +59,16 @@ public class LogFragment extends Fragment implements
         this.showActionBar = showActionBar;
 	}
 	
-	public void attachTo(FragmentActivity a){
+	public void attachTo(Activity a){
 		this.attachTo(a,android.R.id.content);
 	}
-    public void attachTo(FragmentActivity a, int viewId) {
-        a.getSupportFragmentManager().beginTransaction().add(
+    public void attachTo(Activity a, int viewId) {
+        a.getFragmentManager().beginTransaction().add(
                 viewId, this).commit();
     }
 	
-	public void detach(FragmentActivity a){
-		a.getSupportFragmentManager().beginTransaction().remove(this).commit();
+	public void detach(Activity a){
+		a.getFragmentManager().beginTransaction().remove(this).commit();
 	}
 
     @Override
@@ -288,7 +288,7 @@ public class LogFragment extends Fragment implements
         body += "SDK: " + Build.VERSION.SDK_INT + "\n\n";
         body += "Comments: ";
         
-        if(!Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)){
+        if(!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
         	Toast.makeText(context, "Send Failed: Need sdcard access.", Toast.LENGTH_LONG).show();
         	return;
         }
@@ -307,11 +307,11 @@ public class LogFragment extends Fragment implements
         
         Log.e("LDN","Copy: " + String.valueOf(b));        
 
-		final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+		final Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("text/plain");
-        emailIntent .putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"jug6ernaut.feedback@gmail.com"});
-        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
-        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
+        emailIntent .putExtra(Intent.EXTRA_EMAIL, new String[]{"jug6ernaut.feedback@gmail.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
         emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(dest));
         
         startActivity(Intent.createChooser(emailIntent, "Email:"));

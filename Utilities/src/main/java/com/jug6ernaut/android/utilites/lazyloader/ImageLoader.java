@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import com.jug6ernaut.android.utilites.ImagesUtils;
-import com.jug6ernaut.android.utilities.R;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,18 +24,13 @@ public class ImageLoader {
     FileCache fileCache;
     private Map<View, String> imageViews=Collections.synchronizedMap(new WeakHashMap<View, String>());
     ExecutorService executorService; 
-    int stub_id= R.drawable.stub;
+    int stub_id = 0;
     
     public ImageLoader(Context context,int imageStub){
-    	this(context);
-    	stub_id = imageStub;
-    }
-    
-    public ImageLoader(Context context){
         fileCache=new FileCache(context);
         executorService=Executors.newFixedThreadPool(5);
     }
-    
+
     public boolean cached(String url){
     	return memoryCache.containsKey(url);
     }
