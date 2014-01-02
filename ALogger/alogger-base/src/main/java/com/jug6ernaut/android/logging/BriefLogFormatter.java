@@ -1,10 +1,11 @@
 package com.jug6ernaut.android.logging;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
- 
+
 public class BriefLogFormatter extends Formatter {
 	
 	private static final DateFormat format = new SimpleDateFormat("h:mm:ss");

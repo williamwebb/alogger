@@ -1,5 +1,6 @@
 package com.jug6ernaut.android.logging;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: williamwebb

@@ -33,7 +33,7 @@ public abstract class Logger implements Serializable {
             rootLogger = ALogger.getRootLogger();
         }
 
-        if(BuildConfig.DEBUG || FORCE_LOGGING)
+        if(rootLogger.BuildConfigDebug  || FORCE_LOGGING)
             return new DebugLogger(name);
         else
             return new ProdLogger(name);

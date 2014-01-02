@@ -1,7 +1,7 @@
 package com.jug6ernaut.android.logging;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
- 
+
 public class JSONFormatter extends Formatter {
 	
 	/**

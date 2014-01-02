@@ -1,4 +1,3 @@
-
 package com.jug6ernaut.android.logging;
 
 import android.app.Application;
@@ -20,6 +19,8 @@ public class ALogger implements Serializable {
     private static String logFilePath = "";
     private static String mTag = "";
     static ALogger alogger = null;
+
+    public static Boolean BuildConfigDebug;
 
     private ALogger(){}
 
@@ -50,11 +51,6 @@ public class ALogger implements Serializable {
     }
 
     private ALogger(Context context, String tag) {
-        InitializeLogger(context, tag);
-    }
-
-    private static void InitializeLogger(Context context, final String tag) {
-
         logger = java.util.logging.Logger.getLogger(tag);
 
         logFilePath = context.getFilesDir().getPath().toString() + "/" + tag + ".log";
@@ -65,6 +61,13 @@ public class ALogger implements Serializable {
         logger.setUseParentHandlers(false);
         logger.setLevel(Level.ALL);
         logger.addHandler(handler);
+
+        try {
+            BuildConfigDebug = Class.forName(context.getPackageName()+".BuildConfig").getDeclaredField("DEBUG").getBoolean(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            BuildConfigDebug = false;
+        }
     }
 
     private static FileHandler getHandler(String filePath) {
@@ -108,7 +111,7 @@ public class ALogger implements Serializable {
 
         @Override
         public void uncaughtException(Thread thread, Throwable ex) {
-            alogger.log("UncaughtException", ex,LogLevel.FATAL);
+            alogger.log("UncaughtException", ex, LogLevel.FATAL);
             dExceptionHandler.uncaughtException(thread, ex);
         }
 
