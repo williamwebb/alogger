@@ -1,9 +1,6 @@
 package com.jug6ernaut.android.utilites;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -87,5 +84,16 @@ public class ReflectionUtils {
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
 
         field.set(null, newValue);
+    }
+
+    public static <Type> Type getFinalStatic(Class clazz, String fieldName, Class<Type> returnType) throws Exception {
+        Field field = getClassField(clazz,fieldName);
+        field.setAccessible(true);
+
+//        Field modifiersField = Field.class.getDeclaredField("modifiers");
+//        modifiersField.setAccessible(true);
+//        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+        return returnType.cast(field.get(null));
     }
 }
